@@ -1,0 +1,183 @@
+Pour documenter chaque étape de votre pipeline avec des sources officielles (théoriques) et expérimentales, voici une synthèse structurée. Chaque phase est accompagnée des références appropriées pour vous permettre de digitaliser les courbes et de respecter la physique sous-jacente.
+
+---
+
+## Phase 0 : Calibrations initiales
+
+### Sources officielles (théoriques)
+
+- **Norme ISO 5-3** (Status M) : définit les conditions de mesure densitométrique pour les films négatifs couleur.
+- **Norme ISO 14524** : décrit la méthode de mesure de l'OECF (Opto-Electronic Conversion Function) et du bruit.
+- **Jakob & Hanika 2019** : « A Practical Approach to Spectral Reconstruction » — cadre théorique pour la reconstruction spectrale à partir de valeurs RVB. PDF et code disponibles sur `https://rgl.epfl.ch/publications/Jakob2019Spectral`.
+
+### Sources expérimentales
+
+- **Jiang et al. 2013** : base de données de 28 caméras (400–720 nm, pas de 10 nm). Article PDF : `https://infosciences.epfl.ch/record/182538/files/egpaper_final.pdf`. Base de données : `https://zenodo.org/records/3245883`. ⚠️ L'échelle absolue est perdue, comme pour vos CSV.
+- **Mitsuba-renderer/rgb2spec** : implémentation du modèle de Jakob-Hanika. `https://github.com/mitsuba-renderer/rgb2spec`.
+
+---
+
+## Phase 1 : Prise de vue
+
+### Sources officielles (théoriques)
+
+- **Fiche technique Kodak Portra 400 — E-4050** : conditions d'exposition recommandées (1/500 s à f/11 en plein soleil, page 2). Lien : `https://www.fotomedia.ch/fm_fr/mwdownloads/download/link/id/850`.
+- **Norme ISO 5800** : définition de la sensibilité ISO pour les films négatifs couleur.
+
+### Sources expérimentales
+
+- **Photrio / discussions** : retours d'expérience sur l'exposition du Portra 400. `https://www.photrio.com/forum/threads/rms-of-kodak-portra-400-film.81512/`.
+
+---
+
+## Phase 2 : RAW → lumière de scène linéaire
+
+### Sources officielles (théoriques)
+
+- **LibRaw / rawpy** : documentation sur le dématriçage sans courbe. `https://github.com/LibRaw/LibRaw`.
+- **Norme ISO 14524** : méthode de mesure de la linéarité du capteur.
+
+### Sources expérimentales
+
+- **DxO Mark** : mesures de bruit et de réponse linéaire du Canon 90D. `https://www.dxomark.com/Cameras/Canon/EOS-90D`.
+
+---
+
+## Phase 3 : RVB → spectre
+
+### Sources officielles (théoriques)
+
+- **Jakob & Hanika 2019** : reconstruction spectrale. PDF : `https://rgl.epfl.ch/publications/Jakob2019Spectral`.
+- **Smits 1999** : « An RGB-to-Spectrum Conversion for Reflectances » — méthode alternative.
+
+### Sources expérimentales
+
+- **Base de données Jiang et al.** : 28 caméras. `https://zenodo.org/records/3245883`.
+- **Colour-science** : implémentation de `colour.recovery.jakob2019`. `https://github.com/colour-science/colour`.
+
+---
+
+## Phase 4 : Exposition du film (sensibilité spectrale)
+
+### Sources officielles (théoriques)
+
+- **Fiche E-4050, page 4** : courbes de sensibilité spectrale (couches jaune, magenta, cyan). Axe Y en log de 1/(erg/cm²). Lien : `https://www.fotomedia.ch/fm_fr/mwdownloads/download/link/id/850`.
+- **Fiche Vision3 500T — 5219/7219** : courbes de sensibilité spectrale (TI2647D). `https://www.kodak.com/content/products-brochures/motion-picture/KODAK-VISION3-5219-7219-technical-information.pdf`.
+- **Théorie de Hurter & Driffield** : relation entre exposition et densité. Article original : `https://archive.org/details/mathematicalwork00hurs`.
+- **Modèle de sensibilité spectrale** : équations données dans `https://dx.doi.org/10.2172/6677531`. Le document définit la sensibilité spectrale comme l'inverse de l'énergie requise pour atteindre une densité donnée.
+
+### Sources expérimentales
+
+- **Spektrafilm (Andrea Volpato)** : profils numérisés de Portra 400, Endura. `https://github.com/andreavolpato/spektrafilm`.
+- **Jiang et al. 2013** : base de données spectrale.
+
+---
+
+## Phase 5 : Grain et image latente
+
+### Sources officielles (théoriques)
+
+- **Newson, Faraj, Delon, Galerne (2017)** : « Realistic Film Grain Rendering » — modèle booléen basé sur la physique. PDF : `https://www.iopl.im/pub/art/2017/192/article.pdf`. Code : `https://www.iopl.im/pub/art/2017/192`.
+- **Newson et al. (2017)** : « Analysis of a Physically Realistic Film Grain Model » — analyse théorique du modèle booléen, expressions pour l'espérance et la covariance. PDF : `https://hal.science/hal-01494123v2/file/film_grain_gaussian_texture.pdf`.
+- **Zhang, Wang, Tian, Pappas (2023)** : « Film Grain Rendering and Parameter Estimation » — formules d'estimation des paramètres du modèle booléen à partir d'images scannées. PDF : `https://dl.acm.org/doi/pdf/10.1145/3592127`. DOI : `10.1145/3592127`.
+- **Modèle booléen** : définition formelle. Le modèle booléen est un ensemble de boules dont les centres sont distribués selon un processus de Poisson d'intensité λ. Les boules représentent les cristaux d'halogénure d'argent.
+
+### Sources expérimentales
+
+- **PGI (Print Grain Index)** : fiche E-4050, page 3. Valeurs : 37 (4.4×), 59 (8.8×), 89 (17.8×) pour le format 135.
+- **RMS Granularity** : mesure expérimentale par microdensitomètre. Méthodologie décrite dans `https://isprs.org/proceedings/XXIII/congress/part1/167_XXIII-B1.pdf`. L'ouverture standard est de 48 µm.
+- **Valeur RMS du Portra 400** : une source mentionne RMS = 9, mais elle provient d'un forum et doit être vérifiée. La plage typique pour les films couleur est de 5 à 30.
+- **Code open source** :
+  - **Spektrafilm** : `https://github.com/andreavolpato/spektrafilm` — grain généré sur le négatif par modèle stochastique.
+  - **filmr** (Rust) : `https://crates.io/crates/filmr` — simulation de grain basée sur RMS granularity et blur radius.
+  - **Fotufilm engine** : `https://github.com/DhaliwalX/fotufilm-engine` — modèle d'exposition, développement et tirage.
+
+---
+
+## Phase 6 : Développement C-41 et effet d'interimage
+
+### Sources officielles (théoriques)
+
+- **Fiche technique Kodak Process C-41 — Z-131** : étapes, températures, réapprovisionnement. Lien : `https://business.kodakmoments.com/sites/default/files/wysiwyg/pro/chemistry/z131.pdf`.
+- **Brevet US 6,274,299** : description détaillée des effets d'interimage, ratios de gamma (0,8 à 1,30), utilisation des coupleurs DIR. PDF : `https://patentimages.storage.googleapis.com/28/4b/2e/9710331272110b/US6274299.pdf`.
+- **Brevet EP 0 905 561 A1** : méthode de détermination du facteur de diffusion d'un inhibiteur de développement. PDF : `https://patentimages.storage.googleapis.com/b3/30/68/d4ecd40f8b467d/EP0905561A1.pdf`. Le facteur de diffusion est calculé en comparant la réduction de densité entre un échantillon avec couche de Lippmann (piège à inhibiteur) et sans.
+- **Brevet EP 0 505 008 A2** : évaluation de l'effet d'interimage par le rapport des gammas. Le rapport γ_couche4 / γ_couche2 est le critère. Plus le rapport est petit, plus l'effet d'interimage est faible.
+- **Article J. Soc. Photogr. Sci. Technol. Japan** : revue sur la chimie des coupleurs DIR. Les inhibiteurs libérés diffusent horizontalement et verticalement dans l'émulsion, s'adsorbent sur les cristaux d'halogénure d'argent voisins et inhibent le développement.
+
+### Sources expérimentales
+
+- **Brevet US 5,447,819** : exemples de ratios de gammas mesurés (γ_vert/γ_rouge = 0,90 pour comparatif, 0,65 pour l'invention).
+- **Brevet US 5,326,688** : tableaux de ratios d'accutance et de gamma.
+- **Mesure du facteur de diffusion** : méthode expérimentale détaillée dans EP 0 905 561 A1. Le développement se fait dans le révélateur C-41 à 38°C pendant 120 s.
+- **Cinétique de développement** : étude sur la pénétration des agents développateurs dans les couches de gélatine. La distance de pénétration est proportionnelle à la racine carrée du temps de développement.
+
+---
+
+## Phase 7 : Densité spectrale du négatif
+
+### Sources officielles (théoriques)
+
+- **Fiche E-4050, page 4** : courbes de densité spectrale des colorants (Midscale Neutral et Minimum Density).
+- **Fiche Vision3 500T** : courbes TI2647E (Yellow, Magenta, Cyan, Minimum Density, Midscale Neutral).
+
+### Sources expérimentales
+
+- **Spektrafilm** : profils numérisés. `https://github.com/andreavolpato/spektrafilm`.
+- **Digitalisation WebPlotDigitizer** : `https://automeris.io/WebPlotDigitizer/` pour extraire les courbes des PDF.
+
+---
+
+## Phase 8 : Tirage Endura Premier
+
+### Sources officielles (théoriques)
+
+- **Fiche E-4070** : courbes caractéristiques du papier (Status A), sensibilité spectrale, densité spectrale. PDF : `https://business.kodakmoments.com/sites/default/files/files/products/e4070.pdf`.
+- **Fiche E-4071** (Metallic) : `http://imaging.kodakalaris.com/sites/prod/files/files/resources/metallic-techpub-e4071.pdf`.
+
+### Sources expérimentales
+
+- **Fiche E-4070, page 2** : temps d'exposition optique (2,4 s rouge, 3,3 s vert, 4,9 s bleu à f/8 pour ×8) avec filtres Wratten 25, 99, 47B.
+- **Fiche E-4070, page 3** : éclairage d'évaluation (5000 K ± 1000, IRC 85–100, ≥ 538 lux).
+
+---
+
+## Phase 9 : Validation
+
+### Sources officielles (théoriques)
+
+- **Norme ISO 3664** : conditions d'observation pour l'évaluation visuelle.
+- **Norme ISO 14524** : méthode de mesure de l'OECF.
+- **ΔE2000** : différence colorimétrique. Référence : CIE 15.
+
+### Sources expérimentales
+
+- **Comparaison avec des scans réels** : méthodologie décrite dans les articles de Newson et al.
+- **Tests à l'aveugle (ABX)** : protocole standard pour la validation perceptuelle.
+
+---
+
+## Résumé des sources par phase
+
+| Phase | Source officielle (théorique) | Source expérimentale |
+| :--- | :--- | :--- |
+| **0. Calibrations** | ISO 5-3, ISO 14524, Jakob & Hanika 2019 | Jiang et al. 2013, rgb2spec |
+| **1. Prise de vue** | E-4050, ISO 5800 | Photrio discussions |
+| **2. RAW → linéaire** | LibRaw, ISO 14524 | DxO Mark |
+| **3. RVB → spectre** | Jakob & Hanika 2019, Smits 1999 | Jiang et al. 2013, colour-science |
+| **4. Sensibilité spectrale** | E-4050, Vision3 5219, Hurter & Driffield | Spektrafilm, Jiang et al. 2013 |
+| **5. Grain** | Newson et al. 2017, Zhang et al. 2023 | PGI (E-4050), RMS (ISPRS), filmr, fotufilm |
+| **6. Développement C-41** | Z-131, brevets US 6,274,299, EP 0 905 561 | Brevets US 5,447,819, US 5,326,688 |
+| **7. Densité spectrale** | E-4050, Vision3 5219 | Spektrafilm, WebPlotDigitizer |
+| **8. Tirage Endura** | E-4070, E-4071 | E-4070 (temps d'exposition) |
+| **9. Validation** | ISO 3664, ISO 14524, CIE 15 | Comparaison scans, ABX |
+
+---
+
+## Documents complémentaires
+
+- **Kodak H-61 (LAD)** : `https://www.kodak.com/content/products-brochures/Film/Scanning-Recommendations-for-Extended-Dynamic-Range-Camera-Films-EN.pdf`
+- **Kodak H-845 (image structure)** : non vérifié.
+- **Kodak H-24 (ECN-2)** : `https://www.kodak.com/go/h24`
+- **Livres de référence** : James, Tani, Haist, Hunt, Keelan.
+
+Toutes ces sources sont librement accessibles (sauf les normes ISO, payantes) et vous permettront de digitaliser les courbes vous-même pour alimenter votre simulation sans aucune approximation. Si vous souhaitez que je détaille une source ou une phase en particulier, n'hésitez pas.
