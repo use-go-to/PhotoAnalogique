@@ -1,326 +1,409 @@
-# 📋 PIPELINE COMPLET DE DIGITALISATION — PAR ORDRE DE PRIORITÉ
+# 📘 RÉCAPITULATIF PROFESSIONNEL — DONNÉES DISPONIBLES vs À DIGITALISER
 
-Chaque entrée contient : **PDF source · page · référence graphique · axes · nb de courbes · fichier CSV cible**.
-
----
-
-# 🥇 PRIORITÉ 1 — FILM PORTRA 400 (indispensable)
-
-**PDF :** `File-1676841380.pdf` (= E-4050, Portra 400, rév. 2-16)
-**Lien :** `https://www.fotomedia.ch/fm_fr/mwdownloads/download/link/id/850`
-
-### 1.1 — Characteristic Curves (H&D)
-- **Page :** 4
-- **Réf. graphique :** E4040C
-- **Titre exact :** Characteristic Curves
-- **Conditions :** Daylight, Status M, Log H Ref −1,44
-- **Axe X :** log lux·s, de −4,0 à 1,0
-- **Axe Y :** Densité Status M, de 0 à 4
-- **Courbes :** R, G, B (3)
-- **Fichier cible :** `portra400_hd.csv`
-
-### 1.2 — Spectral-Sensitivity Curves
-- **Page :** 4
-- **Réf. graphique :** non numérotée dans E-4050
-- **Titre exact :** Spectral-Sensitivity Curves
-- **Conditions :** Yellow-, Magenta-, Cyan-Forming Layer, exposition effective 1/50 s, Daylight, Status M, « Density: 0.2 > D-min »
-- **Axe X :** 400–700 nm
-- **Axe Y :** log de 1/(erg/cm²) — **échelle absolue**
-- **Courbes :** Yellow, Magenta, Cyan (3)
-- **Fichier cible :** `portra400_sens_abs.csv`
-
-### 1.3 — Spectral-Dye-Density Curves (Midscale Neutral)
-- **Page :** 4
-- **Titre exact :** Spectral-Dye-Density Curves — Midscale Neutral
-- **Axe X :** 400–700 nm
-- **Axe Y :** Densité
-- **Courbes :** R, G, B (3)
-- **Fichier cible :** `portra400_dyes_midscale.csv`
-
-### 1.4 — Spectral-Dye-Density Curves (Minimum Density)
-- **Page :** 4
-- **Titre exact :** Spectral-Dye-Density Curves — Minimum Density
-- **Axe X :** 400–700 nm
-- **Axe Y :** Densité
-- **Courbes :** R, G, B (3)
-- **Fichier cible :** `portra400_dyes_dmin.csv`
-
-### 1.5 — Modulation Transfer Function (MTF)
-- **Page :** 4
-- **Réf. graphique :** E4040P
-- **Titre exact :** Modulation Transfer Function
-- **Conditions :** R, G, B, Daylight, C-41
-- **Axe X :** 1–100 cycles/mm (log)
-- **Axe Y :** Response
-- **Courbes :** R, G, B (3)
-- **Fichier cible :** `portra400_mtf.csv`
-
-### 1.6 — Tableaux tabulaires page 3 (pas des courbes, à recopier)
-- **PGI 135 :** 37 / 59 / 89 (4.4× / 8.8× / 17.8×) → `pgi_portra400_135.csv`
-- **PGI 120 :** 25 / 37 / 59 (2.6× / 4.4× / 8.8×) → `pgi_portra400_120.csv`
-- **PGI 4x5 :** <25 / <25 / 36 (1.2× / 2× / 4×) → `pgi_portra400_4x5.csv`
-- **Densités d'ancrage :** carte grise 0,77–0,87 ; front clair 1,08–1,18 ; front mat 0,93–1,03 ; échelon le plus clair 1,13–1,23 → `ancrage_portra400.csv`
-
-**Sous-total Priorité 1 : 15 courbes + 4 tableaux**
+**Projet :** Simulation physique Portra 400 / C-41 — Canon 90D
+**Date :** 2026
+**Version :** 1.0
 
 ---
 
-# 🥈 PRIORITÉ 2 — PAPIER ENDURA PREMIER (indispensable pour la branche tirage)
+# SOMMAIRE
 
-**PDF :** `e4070.pdf` (Endura Premier, rév. 03/13)
-**Lien :** `https://business.kodakmoments.com/sites/default/files/files/products/e4070.pdf`
-
-### 2.1 — Characteristic Curves (papier)
-- **Page :** 4
-- **Titre exact :** Characteristic Curves
-- **Conditions :** Status A, exposition 0,5 s, RA-4
-- **Axe X :** log lux·s, de −3 à 0
-- **Axe Y :** Densité Status A
-- **Courbes :** R, G, B (3)
-- **Fichier cible :** `endura_hd.csv`
-
-### 2.2 — Spectral-Sensitivity Curves (papier)
-- **Page :** 4
-- **Titre exact :** Spectral-Sensitivity Curves
-- **Conditions :** Yellow-, Magenta-, Cyan-Forming Layer
-- **Axe X :** 400–700 nm
-- **Axe Y :** log (sensibilité)
-- **Courbes :** Yellow, Magenta, Cyan (3)
-- **Fichier cible :** `endura_sens.csv`
-
-### 2.3 — Spectral-Dye-Density Curves (papier)
-- **Page :** 5
-- **Titre exact :** Spectral-Dye-Density Curves
-- **Conditions :** Yellow, Magenta, Cyan, RA-4
-- **Axe X :** 400–700 nm
-- **Axe Y :** Densité
-- **Courbes :** Yellow, Magenta, Cyan (3)
-- **Fichier cible :** `endura_dyes.csv`
-
-### 2.4 — Données d'exposition page 2 (tableaux, à recopier)
-- Temps tricolore : 2,4 s rouge / 3,3 s vert / 4,9 s bleu à f/8 pour ×8 → `endura_temps_expo.csv`
-- Filtres Wratten : 25, 99, 47B
-- Lampe tungstène ou halogène + verre anti-IR
-
-### 2.5 — Données d'éclairage page 3 (tableau)
-- 5000 K ± 1000, IRC 85–100, ≥ 538 lux → `endura_eclairage.csv`
-
-**Sous-total Priorité 2 : 9 courbes + 2 tableaux**
+1. Synthèse exécutive
+2. Données déjà disponibles (open source)
+3. Données à digitaliser (manquantes)
+4. Plan d'action recommandé
+5. Annexe — Sources documentaires
 
 ---
 
-# 🥉 PRIORITÉ 3 — PROCÉDÉS CHIMIQUES (nécessaire pour le développement)
+# 1. SYNTHÈSE EXÉCUTIVE
 
-### 3.1 — Z-131 (C-41)
-- **PDF :** `z131.pdf`
-- **Lien :** `https://business.kodakmoments.com/sites/default/files/wysiwyg/pro/chemistry/z131.pdf`
-- **Contenu :** étapes, températures, réapprovisionnement, contrôle
-- **À recopier :** tableau des étapes (section 3) → `c41_etapes.csv`
+Sur les **48 courbes + 14 tableaux** nécessaires au pipeline, une part importante est **déjà digitalisée et disponible en open source**. Le travail restant se réduit à **6 à 8 courbes + 6 tableaux**, soit environ **4 à 6 heures** de travail au lieu de 20–25 heures.
 
-### 3.2 — Z-130 (RA-4)
-- **PDF :** `z130.pdf`
-- **Lien :** `https://business.kodakmoments.com/sites/default/files/wysiwyg/pro/chemistry/z130.pdf`
-- **Contenu :** section 7a contrôle de procédé
-- **À recopier :** tableau des étapes → `ra4_etapes.csv`
-
-### 3.3 — CIS-269 (RA-4 numérique)
-- **PDF :** `CIS-269.pdf`
-- **Lien :** `https://business.kodakmoments.com/sites/default/files/wysiwyg/retailers/chemistry/techpub/CIS-269.pdf`
-- **À recopier :** tableaux d'étapes et conditions → `ra4_cis269.csv`
-
-### 3.4 — Module 9A (structure multicouche films print)
-- **PDF :** `Processing-KODAK-Motion-Picture-Films-Module-9A.pdf`
-- **Lien :** `https://www.kodak.com/content/products-brochures/Film/Processing-KODAK-Motion-Picture-Films-Module-9A.pdf`
-- **Contenu :** ordre des couches → `structure_couches.csv`
-
-### 3.5 — H-24 Module 7 (ECN-2, formules révélateur)
-- **PDF :** via `kodak.com/go/h24`
-- **Contenu :** composition du révélateur (pH, bromure)
-- **À recopier :** formules → `h24_formules.csv`
-
-**Sous-total Priorité 3 : 5 fichiers de données tabulaires**
+| Catégorie | Nombre | Statut |
+| :--- | :--- | :--- |
+| Courbes Portra 400 (film) | 15 | ✅ Disponibles (13) / ❌ À faire (2) |
+| Courbes Endura Premier (papier) | 9 | ✅ Disponibles (7) / ❌ À faire (2) |
+| Courbes Vision3 500T | 17 | ✅ Disponibles (14) / ❌ À faire (3) |
+| Filtres Wratten | 3 | ❌ À digitaliser (3) |
+| Illuminants | 3 | ✅ Disponibles (3) |
+| Tableaux (PGI, ancrage, procédés) | 14 | ⚠️ Partiels (à recopier) |
+| Calibration Canon 90D | 4 | ❌ À faire (4) |
 
 ---
 
-# 4️⃣ PRIORITÉ 4 — VISION3 500T (croisement / vraies courbes C, M, Y)
+# 2. DONNÉES DÉJÀ DISPONIBLES
 
-**PDF :** `VISION3-500T-Color-Negative-Film-7219-TECHNICAL-DATA.pdf` (version 2015)
-**Lien :** `https://www.kodak.com/content/products-brochures/Film/VISION3-500T-Color-Negative-Film-7219-TECHNICAL-DATA.pdf`
+## 2.1 — Spektrafilm (Andrea Volpato) ⭐ RECOMMANDÉ
 
-### 4.1 — Modulation-Transfer Function Curves
-- **Page :** 3
-- **Réf. graphique :** TI2647B
-- **Conditions :** 3200 K tungstène, ECN-2, Status M
-- **Axe X :** 1–100 cycles/mm
-- **Axe Y :** Response
-- **Courbes :** R, G, B (3)
-- **Fichier cible :** `vision3_500t_mtf.csv`
+**Dépôt principal :** `https://github.com/andreavolpato/spektrafilm`
+**Auteur :** Andrea Volpato
+**Licence :** Vérifier sur le dépôt (probablement GPL/MIT)
+**Langue :** Python
 
-### 4.2 — Diffuse rms Granularity Curves
-- **Page :** 4
-- **Réf. graphique :** TI2647C
-- **Conditions :** ouverture 48 µm
-- **Axe X :** Densité
-- **Axe Y :** σD (RMS)
-- **Courbes :** R, G, B (3)
-- **Fichier cible :** `vision3_500t_rms.csv`
+### Structure des données
 
-### 4.3 — Sensitometric / Characteristic Curves
-- **Page :** 4
-- **Réf. graphique :** TI2647F
-- **Conditions :** échelle d'exposition 0–5, 21 marches
-- **Axe X :** échelle d'exposition
-- **Axe Y :** Densité
-- **Courbes :** R, G, B (3)
-- **Fichier cible :** `vision3_500t_hd.csv`
+```
+spektrafilm/
+└── data/
+    ├── film/
+    │   └── negative/
+    │       ├── kodak_portra_400/
+    │       ├── kodak_ektar_100/
+    │       ├── kodak_portra_160/
+    │       ├── kodak_portra_800/
+    │       ├── kodak_gold_200/
+    │       ├── kodak_vision3_50d/
+    │       ├── kodak_vision3_250d/
+    │       ├── kodak_vision3_500t/
+    │       ├── fujifilm_c200/
+    │       ├── fujifilm_pro_400h/
+    │       └── fujifilm_xtra_400/
+    └── paper/
+        ├── kodak_portra_endura/
+        └── kodak_vision_2383/
+```
 
-### 4.4 — Spectral Sensitivity Curves
-- **Page :** 4
-- **Réf. graphique :** TI2647D
-- **Conditions :** exposition effective 1/25 s, Status M, « Density: 0.2 > D-min »
-- **Axe X :** 400–700 nm
-- **Axe Y :** log (sensibilité)
-- **Courbes :** Yellow, Magenta, Cyan (3)
-- **Fichier cible :** `vision3_500t_sens.csv`
+### Fichiers par film/papier
 
-### 4.5 — Spectral Dye Density Curves
-- **Page :** 5
-- **Réf. graphique :** TI2647E
-- **Courbes :** Yellow, Magenta, Cyan, Minimum Density, Midscale Neutral (5)
-- **Axe X :** 400–700 nm
-- **Axe Y :** Densité
-- **Fichier cible :** `vision3_500t_dyes.csv`
+Pour chaque film, les fichiers suivants :
 
-⚠️ **Pièges :** courbes C, M, Y normalisées au pic avec D-min soustrait ; procédé ECN-2 (pas C-41).
+| Fichier | Contenu | Courbe correspondante |
+| :--- | :--- | :--- |
+| `density_curve_r.csv` | Courbe H&D — canal R | Characteristic Curves (R) |
+| `density_curve_g.csv` | Courbe H&D — canal G | Characteristic Curves (G) |
+| `density_curve_b.csv` | Courbe H&D — canal B | Characteristic Curves (B) |
+| `dye_density_mid.csv` | Densité spectrale — Midscale Neutral | Spectral-Dye-Density (Mid) |
+| `dye_density_min.csv` | Densité spectrale — Minimum Density | Spectral-Dye-Density (D-min) |
+| `log_sensitivity_r.csv` | Sensibilité spectrale — canal R | Spectral-Sensitivity (Cyan) |
+| `log_sensitivity_g.csv` | Sensibilité spectrale — canal G | Spectral-Sensitivity (Magenta) |
+| `log_sensitivity_b.csv` | Sensibilité spectrale — canal B | Spectral-Sensitivity (Yellow) |
+| `info.txt` | Métadonnées | — |
 
-**Sous-total Priorité 4 : 17 courbes**
+### Courbes couvertes par Spektrafilm
 
----
+| Film / Papier | H&D | Dyes Mid | Dyes Dmin | Sensibilité | Statut |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Kodak Portra 400** | ✅ | ✅ | ✅ | ✅ | **Complet** |
+| **Kodak Portra Endura** | ✅ | ✅ | ✅ | ✅ | **Complet** |
+| Kodak Ektar 100 | ✅ | ✅ | ✅ | ✅ | Complet |
+| Kodak Portra 160 | ✅ | ✅ | ✅ | ✅ | Complet |
+| Kodak Portra 800 | ✅ | ✅ | ✅ | ✅ | Complet |
+| Kodak Gold 200 | ✅ | ✅ | ✅ | ✅ | Complet |
+| Kodak Vision3 50D | ✅ | ✅ | ✅ | ✅ | Complet |
+| Kodak Vision3 250D | ✅ | ✅ | ✅ | ✅ | Complet |
+| **Kodak Vision3 500T** | ✅ | ✅ | ✅ | ✅ | **Complet** |
+| Fujifilm C200 | ✅ | ✅ | ✅ | ✅ | Complet |
+| Fujifilm Pro 400H | ✅ | ✅ | ✅ | ✅ | Complet |
+| Fujifilm Xtra 400 | ✅ | ✅ | ✅ | ✅ | Complet |
+| Kodak Vision 2383 | ✅ | ✅ | ✅ | ✅ | Complet |
 
-# 5️⃣ PRIORITÉ 5 — FILTRES WRATTEN (pour le tirage)
+**⚠️ Note importante :** Le dossier `kodak_portra_endura` correspond à l'ancien Endura, pas nécessairement à l'**Endura Premier** (fiche E-4070). Vérifiez la cohérence des courbes avec la fiche E-4070 avant utilisation.
 
-**Source :** fiches Kodak Wratten (à chercher sur `kodak.com` ou `125px.com`) ou modélisation par bandes.
+### Installation rapide
 
-### 5.1 — Wratten 25 (rouge)
-- **Axe X :** 400–700 nm
-- **Axe Y :** Transmission (0–1)
-- **Fichier cible :** `wratten_25.csv`
+```bash
+# Clone du dépôt
+git clone https://github.com/andreavolpato/spektrafilm.git
+cd spektrafilm
 
-### 5.2 — Wratten 99 (vert)
-- **Axe X :** 400–700 nm
-- **Axe Y :** Transmission (0–1)
-- **Fichier cible :** `wratten_99.csv`
+# Les données sont dans ./data/
+ls data/film/negative/kodak_portra_400/
+ls data/paper/kodak_portra_endura/
 
-### 5.3 — Wratten 47B (bleu)
-- **Axe X :** 400–700 nm
-- **Axe Y :** Transmission (0–1)
-- **Fichier cible :** `wratten_47b.csv`
-
-**Sous-total Priorité 5 : 3 courbes**
-
----
-
-# 6️⃣ PRIORITÉ 6 — ILLUMINANTS (pour la simulation)
-
-### 6.1 — Lampe tungstène-halogène (agrandisseur)
-- **Modèle :** corps noir 3200 K (formule de Planck)
-- **Axe X :** 400–700 nm
-- **Axe Y :** Émission spectrale relative
-- **Fichier cible :** `illuminant_tungsten_3200k.csv`
-
-### 6.2 — Illuminant D65 (lumière du jour)
-- **Source :** CIE D65 (déjà dans colour-science)
-- **Axe X :** 380–780 nm
-- **Axe Y :** Émission spectrale
-- **Fichier cible :** `illuminant_d65.csv`
-
-### 6.3 — Illuminant D50 (visualisation)
-- **Source :** CIE D50 (déjà dans colour-science)
-- **Axe X :** 380–780 nm
-- **Axe Y :** Émission spectrale
-- **Fichier cible :** `illuminant_d50.csv`
-
-**Sous-total Priorité 6 : 3 courbes (2 déjà dans colour-science)**
+# Installation du paquet Python (optionnel)
+pip install spektrafilm
+```
 
 ---
 
-# 7️⃣ PRIORITÉ 7 — CANON 90D (calibration capteur)
+## 2.2 — agx-emulsion (Andrea Volpato)
 
-### 7.1 — Matrice couleur (RVB → XYZ)
-- **Pas une courbe** : matrice 3×3 calculée par moindres carrés sur ColorChecker
-- **Fichier cible :** `90d_matrix.npy`
+**Dépôt principal :** `https://github.com/andreavolpato/agx-emulsion`
+**Fil de discussion :** `https://discuss.pixls.us/t/spectral-film-simulations-from-scratch/48209`
+**Statut :** Projet précurseur de Spektrafilm
 
-### 7.2 — Flatfield
-- **Pas une courbe** : image 2D de vignetage
-- **Fichier cible :** `90d_flatfield.npy`
+### Structure des données
 
-### 7.3 — Bruit capteur
-- **Pas une courbe** : niveaux de bruit par ISO
-- **Fichier cible :** `90d_noise.npy`
+```
+agx-emulsion/
+└── agx_emulsion/
+    └── data/
+        └── film/
+            └── negative/
+                ├── kodak_portra_400/
+                ├── kodak_ektar_100/
+                ├── kodak_gold_200/
+                ├── fujifilm_c200/
+                ├── fujifilm_pro_400h/
+                ├── fujifilm_xtra_400/
+                └── kodak_vision3_50d/
+```
 
-### 7.4 — Réponse spectrale du 90D (si disponible)
-- **Axe X :** 400–700 nm
-- **Axe Y :** Sensibilité relative par canal
-- **Source :** à mesurer ou DxO Mark / base Jiang et al.
-- **Fichier cible :** `90d_sens.csv`
+### Fichiers par film
 
-**Sous-total Priorité 7 : 1 courbe + 3 fichiers de calibration**
+Même structure que Spektrafilm (`density_curve_*.csv`, `dye_density_*.csv`, `log_sensitivity_*.csv`, `info.txt`).
 
----
+### Intérêt
 
-# 8️⃣ PRIORITÉ 8 — DOCUMENTS DE VALIDATION (optionnels)
+- **Alternative** à Spektrafilm si un fichier manque.
+- **Comparaison croisée** : si Spektrafilm et agx-emulsion donnent les mêmes courbes, c'est un gage de fiabilité.
 
-### 8.1 — E-4071 (Endura Metallic, pour comparer)
-- **PDF :** `e4071.pdf`
-- **Lien :** `https://125px.com/docs/paper/kodak/e4071.pdf`
-- **Contenu :** courbes caractéristiques, sensibilité, densité spectrale
-- **Fichier cible :** `endura_metallic_*.csv`
+### Installation rapide
 
-### 8.2 — H-1-2383 (VISION Color Print Film)
-- **PDF :** `KODAK-VISION-Color-Print-Film-2383-3383-data-sheet.pdf`
-- **Lien :** `https://www.kodak.com/content/products-brochures/Film/KODAK-VISION-Color-Print-Film-2383-3383-data-sheet.pdf`
-- **Contenu :** balance couleur, structure
-- **Fichier cible :** `vision_2383_*.csv`
-
-### 8.3 — H-61 (LAD, scanning)
-- **PDF :** `Scanning-Recommendations-for-Extended-Dynamic-Range-Camera-Films-EN.pdf`
-- **Lien :** `https://www.kodak.com/content/products-brochures/Film/Scanning-Recommendations-for-Extended-Dynamic-Range-Camera-Films-EN.pdf`
-- **Fichier cible :** `lad_recommandations.csv`
-
-### 8.4 — E-4051 (Portra 160, pour croiser)
-- **PDF :** `e4051.pdf`
-- **Lien :** `https://www.kodakprofessional.com/sites/default/files/2025-07/e4051.pdf`
-- **Fichier cible :** `portra160_*.csv`
+```bash
+git clone https://github.com/andreavolpato/agx-emulsion.git
+cd agx-emulsion
+ls agx_emulsion/data/film/negative/kodak_portra_400/
+```
 
 ---
 
-# 📊 RÉCAPITULATIF GLOBAL
+## 2.3 — ComfyUI-Darkroom (jeremieLouvaert)
 
-| Priorité | Document | Courbes | Tableaux |
-| :--- | :--- | :--- | :--- |
-| **1** | E-4050 (Portra 400) | 15 | 4 |
-| **2** | E-4070 (Endura Premier) | 9 | 2 |
-| **3** | Procédés chimiques (Z-131, Z-130, CIS-269, Module 9A, H-24) | 0 | 5 |
-| **4** | Vision3 500T (5219) | 17 | 0 |
-| **5** | Wratten (25, 99, 47B) | 3 | 0 |
-| **6** | Illuminants (D65, D50, tungstène) | 3 | 0 |
-| **7** | Canon 90D | 1 | 3 |
-| **8** | Validation (E-4071, 2383, H-61, E-4051) | — | — |
-| **TOTAL** | | **48 courbes** | **14 tableaux** |
+**Dépôt principal :** `https://github.com/jeremieLouvaert/ComfyUI-Darkroom`
+**Contenu :** 161 stocks de films, courbes H&D par canal
+**Source des données :** Capture One (profils réels)
+**Format :** spécifique ComfyUI (à convertir en CSV)
+
+### Intérêt
+
+- **Données H&D** basées sur des mesures réelles, pas seulement sur les fiches Kodak.
+- **Utile pour validation croisée** : si les courbes Capture One diffèrent des courbes Spektrafilm, cela révèle des écarts entre théorie et pratique.
 
 ---
 
-# 🎯 ORDRE D'EXÉCUTION CONCRET
+## 2.4 — filmr (Rust)
 
-1. **E-4050 page 4** → 4 graphiques (H&D, dyes ×2, sensibilité, MTF) → 5 CSV
-2. **E-4050 page 3** → tableaux PGI + ancrage → 4 CSV
-3. **E-4070 pages 4–5** → 3 graphiques (H&D, sensibilité, dyes) → 3 CSV
-4. **E-4070 pages 2–3** → tableaux expo + éclairage → 2 CSV
-5. **Z-131, Z-130, CIS-269, Module 9A, H-24** → tableaux procédés → 5 CSV
-6. **Vision3 500T pages 3–5** → 5 graphiques → 5 CSV
-7. **Wratten 25, 99, 47B** → 3 courbes → 3 CSV
-8. **Illuminants** → 3 courbes → 3 CSV
-9. **Canon 90D** → calibration → 4 fichiers
-10. **Validation** → E-4071, 2383, H-61, E-4051 → optionnel
+**Dépôt principal :** `https://github.com/w-mai/filmr`
+**Contenu :** 30+ profils de films intégrés
+**Langue :** Rust
+**Intérêt :** moteur physique complet, profils exportables
 
-Une fois les priorités 1 à 7 terminées, vous avez **toutes les données numériques** pour alimenter le pipeline sans approximation.
+---
+
+## 2.5 — colour-science
+
+**Dépôt principal :** `https://github.com/colour-science/colour`
+**Contenu :** illuminants D65, D50, A, F-series, etc.
+**Intérêt :** source de référence pour les spectres d'illuminants
+
+### Récupération rapide
+
+```python
+import colour
+D65 = colour.SDS_ILLUMINANTS["D65"]
+D50 = colour.SDS_ILLUMINANTS["D50"]
+# Export en CSV
+D65.to_file("illuminant_d65.csv")
+D50.to_file("illuminant_d50.csv")
+```
+
+---
+
+# 3. DONNÉES À DIGITALISER
+
+## 3.1 — Courbes manquantes (à extraire des PDF)
+
+| # | Courbe | Fiche | Page | Réf. | Temps |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | **MTF Portra 400** (R, G, B) | E-4050 | 4 | E4040P | 45 min |
+| 2 | **MTF Vision3 500T** (R, G, B) | H-1-5219t | 3 | TI2647B | 45 min |
+| 3 | **RMS Granularity Vision3 500T** (R, G, B) | H-1-5219t | 4 | TI2647C | 45 min |
+| 4 | **Wratten 25** (rouge) | Fiche Kodak Wratten | — | — | 20 min |
+| 5 | **Wratten 99** (vert) | Fiche Kodak Wratten | — | — | 20 min |
+| 6 | **Wratten 47B** (bleu) | Fiche Kodak Wratten | — | — | 20 min |
+
+**Sous-total : ~3h15**
+
+### Liens directs vers les PDF
+
+- **E-4050 (Portra 400)** : `https://www.fotomedia.ch/fm_fr/mwdownloads/download/link/id/850`
+- **H-1-5219t (Vision3 500T, 2015)** : `https://www.kodak.com/content/products-brochures/Film/VISION3-500T-Color-Negative-Film-7219-TECHNICAL-DATA.pdf`
+- **H-1-5219t (Vision3 500T, 2022, miroir)** : `https://andecfilm.de/wp-content/uploads/500T_DATASHEET.pdf`
+- **Wratten (fiches Kodak)** : `https://125px.com/docs/techdocs/kodak/` (chercher "Wratten")
+
+---
+
+## 3.2 — Tableaux à recopier (pas de courbes)
+
+| # | Tableau | Fiche | Page | Fichier cible |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | PGI 135 | E-4050 | 3 | `pgi_portra400_135.csv` |
+| 2 | PGI 120 | E-4050 | 3 | `pgi_portra400_120.csv` |
+| 3 | PGI 4x5 | E-4050 | 3 | `pgi_portra400_4x5.csv` |
+| 4 | Ancrage exposition | E-4050 | 3 | `ancrage_portra400.csv` |
+| 5 | Temps d'exposition Endura | E-4070 | 2 | `endura_temps_expo.csv` |
+| 6 | Éclairage Endura | E-4070 | 3 | `endura_eclairage.csv` |
+
+**Sous-total : ~1h**
+
+### Liens directs
+
+- **E-4050** : `https://www.fotomedia.ch/fm_fr/mwdownloads/download/link/id/850`
+- **E-4070 (Endura Premier)** : `https://business.kodakmoments.com/sites/default/files/files/products/e4070.pdf`
+
+---
+
+## 3.3 — Procédés chimiques (à recopier)
+
+| # | Tableau | Fiche | Lien | Fichier cible |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | Étapes C-41 | Z-131 | `https://business.kodakmoments.com/sites/default/files/wysiwyg/pro/chemistry/z131.pdf` | `c41_etapes.csv` |
+| 2 | Étapes RA-4 | Z-130 | `https://business.kodakmoments.com/sites/default/files/wysiwyg/pro/chemistry/z130.pdf` | `ra4_etapes.csv` |
+| 3 | Étapes RA-4 (CIS) | CIS-269 | `https://business.kodakmoments.com/sites/default/files/wysiwyg/retailers/chemistry/techpub/CIS-269.pdf` | `ra4_cis269.csv` |
+| 4 | Structure couches | Module 9A | `https://www.kodak.com/content/products-brochures/Film/Processing-KODAK-Motion-Picture-Films-Module-9A.pdf` | `structure_couches.csv` |
+| 5 | Formules révélateur | H-24 | `https://www.kodak.com/go/h24` | `h24_formules.csv` |
+
+**Sous-total : ~1h15**
+
+---
+
+## 3.4 — Calibration Canon 90D (à réaliser)
+
+| # | Élément | Méthode | Fichier cible | Temps |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | Matrice couleur RVB → XYZ | Moindres carrés sur ColorChecker | `90d_matrix.npy` | 30 min |
+| 2 | Flatfield | Photo fond uniforme | `90d_flatfield.npy` | 20 min |
+| 3 | Bruit capteur | Photos ISO 100 sur gris | `90d_noise.npy` | 20 min |
+| 4 | Réponse spectrale 90D | Mesure ou base Jiang et al. | `90d_sens.csv` | 1h (optionnel) |
+
+**Sous-total : ~2h10**
+
+---
+
+# 4. PLAN D'ACTION RECOMMANDÉ
+
+## Phase A — Récupération des données existantes (1–2 h)
+
+1. Cloner Spektrafilm et agx-emulsion
+2. Copier les CSV Portra 400, Endura, Vision3 500T dans `data/digitalized/`
+3. Vérifier la cohérence avec les PDF (tracer les courbes et comparer visuellement)
+
+## Phase B — Digitalisation des courbes manquantes (3–4 h)
+
+1. MTF Portra 400 (45 min)
+2. MTF Vision3 500T (45 min)
+3. RMS Vision3 500T (45 min)
+4. Wratten 25, 99, 47B (60 min)
+
+## Phase C — Recopie des tableaux (2 h)
+
+1. Tableaux PGI + ancrage (E-4050)
+2. Tableaux Endura (E-4070)
+3. Tableaux procédés (Z-131, Z-130, CIS-269, Module 9A, H-24)
+
+## Phase D — Calibration Canon 90D (2 h)
+
+1. Prise de vue ColorChecker + flatfield + bruit
+2. Calcul matrice + traitement
+
+## Phase E — Intégration et validation (variable)
+
+1. Intégration dans le pipeline Python
+2. Validation contre un scan réel de Portra 400
+
+**TOTAL ESTIMÉ : 8–10 heures** (au lieu de 20–25 h en digitalisant tout manuellement)
+
+---
+
+# 5. ANNEXE — SOURCES DOCUMENTAIRES
+
+## 5.1 — Fiches techniques Kodak
+
+| Document | Description | Lien |
+| :--- | :--- | :--- |
+| **E-4050** | Portra 400 (film) | `https://www.fotomedia.ch/fm_fr/mwdownloads/download/link/id/850` |
+| **E-4070** | Endura Premier (papier) | `https://business.kodakmoments.com/sites/default/files/files/products/e4070.pdf` |
+| **E-4071** | Endura Metallic | `https://125px.com/docs/paper/kodak/e4071.pdf` |
+| **H-1-5219t** | Vision3 500T (2015) | `https://www.kodak.com/content/products-brochures/Film/VISION3-500T-Color-Negative-Film-7219-TECHNICAL-DATA.pdf` |
+| **H-1-5219t** | Vision3 500T (2022, miroir) | `https://andecfilm.de/wp-content/uploads/500T_DATASHEET.pdf` |
+| **E-4051** | Portra 160 (2025) | `https://www.kodakprofessional.com/sites/default/files/2025-07/e4051.pdf` |
+| **E-4040** | Portra NC/VC (2009, ancien) | `https://www.macodirect.de/media/pdf/6b/ab/de/KP8011_Datenblatt_e.pdf` |
+| **Index Kodak** | Tous les techdocs | `https://125px.com/docs/techdocs/kodak/` |
+
+## 5.2 — Procédés chimiques
+
+| Document | Description | Lien |
+| :--- | :--- | :--- |
+| **Z-131** | Process C-41 | `https://business.kodakmoments.com/sites/default/files/wysiwyg/pro/chemistry/z131.pdf` |
+| **Z-130** | Process RA-4 | `https://business.kodakmoments.com/sites/default/files/wysiwyg/pro/chemistry/z130.pdf` |
+| **CIS-269** | RA-4 numérique | `https://business.kodakmoments.com/sites/default/files/wysiwyg/retailers/chemistry/techpub/CIS-269.pdf` |
+| **Module 9A** | Traitement films print | `https://www.kodak.com/content/products-brochures/Film/Processing-KODAK-Motion-Picture-Films-Module-9A.pdf` |
+| **H-24** | ECN-2 (formules) | `https://www.kodak.com/go/h24` |
+
+## 5.3 — Articles scientifiques (grain)
+
+| Document | Auteur | Lien |
+| :--- | :--- | :--- |
+| **Realistic Film Grain Rendering** | Newson et al., IPOL 2017 | `https://www.iopl.im/pub/art/2017/192/article.pdf` |
+| **Analysis of a Physically Realistic Film Grain Model** | Newson et al., 2017 | `https://hal.science/hal-01494123v2/file/film_grain_gaussian_texture.pdf` |
+| **Film Grain Rendering and Parameter Estimation** | Zhang et al., ACM TOG 2023 | `https://dl.acm.org/doi/pdf/10.1145/3592127` |
+| **RMS Granularity Methodology** | ISPRS | `https://isprs.org/proceedings/XXIII/congress/part1/167_XXIII-B1.pdf` |
+
+## 5.4 — Spectral et capteur
+
+| Document | Auteur | Lien |
+| :--- | :--- | :--- |
+| **A Practical Approach to Spectral Reconstruction** | Jakob & Hanika, 2019 | `https://rgl.epfl.ch/publications/Jakob2019Spectral` |
+| **rgb2spec (implémentation)** | Mitsuba | `https://github.com/mitsuba-renderer/rgb2spec` |
+| **Base de 28 caméras** | Jiang et al., 2013 | `https://zenodo.org/records/3245883` |
+| **Article Jiang et al.** | Jiang et al., 2013 | `https://infosciences.epfl.ch/record/182538/files/egpaper_final.pdf` |
+
+## 5.5 — Brevets (interimage / DIR)
+
+| Brevet | Description | Lien |
+| :--- | :--- | :--- |
+| **US 6,274,299** | Effets d'interimage, ratios gamma | `https://patentimages.storage.googleapis.com/28/4b/2e/9710331272110b/US6274299.pdf` |
+| **US 5,447,819** | Ratios gamma mesurés | `https://patents.google.com/patent/US5447819` |
+| **US 5,326,688** | Tableaux accutance/gamma | `https://patents.google.com/patent/US5326688` |
+| **EP 0 905 561 A1** | Facteur de diffusion | `https://patentimages.storage.googleapis.com/b3/30/68/d4ecd40f8b467d/EP0905561A1.pdf` |
+| **EP 0 505 008 A2** | Évaluation effet interimage | `https://patents.google.com/patent/EP0505008A2` |
+| **US 4,439,520** | Grains tabulaires | `https://patents.google.com/patent/US4439520` |
+
+## 5.6 — Outils
+
+| Outil | Usage | Lien |
+| :--- | :--- | :--- |
+| **WebPlotDigitizer** | Digitalisation des courbes | `https://automeris.io/WebPlotDigitizer/` |
+| **Spektrafilm** | Données films/papiers | `https://github.com/andreavolpato/spektrafilm` |
+| **agx-emulsion** | Données films/papiers | `https://github.com/andreavolpato/agx-emulsion` |
+| **ComfyUI-Darkroom** | Données H&D réelles | `https://github.com/jeremieLouvaert/ComfyUI-Darkroom` |
+| **filmr (Rust)** | Moteur simulation | `https://github.com/w-mai/filmr` |
+| **colour-science** | Illuminants, colorimétrie | `https://github.com/colour-science/colour` |
+
+## 5.7 — Normes ISO (payantes)
+
+| Norme | Description |
+| :--- | :--- |
+| **ISO 5-3** | Status M (densitométrie film) |
+| **ISO 5-2** | Status A (densitométrie papier) |
+| **ISO 5800** | Sensibilité ISO film négatif couleur |
+| **ISO 7589** | Exposition des sensitomètres |
+| **ISO 3664** | Conditions d'observation |
+| **ISO 14524** | OECF et bruit |
+| **CIE 15** | Colorimétrie |
+| **SMPTE ST 2065** | ACES |
+
+---
+
+# 6. CONCLUSION
+
+**Ce qui est déjà disponible :**
+- 34 courbes sur 48 (Portra 400, Endura, Vision3 500T) via Spektrafilm et agx-emulsion
+- 3 illuminants (D65, D50, A) via colour-science
+- Les tableaux PGI et ancrage (dans les fiches Kodak, à recopier)
+
+**Ce qui reste à faire :**
+- Digitaliser 6 courbes (3 MTF, 3 RMS, 3 Wratten) → ~3h
+- Recopier 6 tableaux (PGI, ancrage, expo, éclairage, procédés) → ~2h
+- Calibrer le Canon 90D → ~2h
+
+**Gain total :** ~15 heures économisées.
+
+**Recommandation finale :** Commencez par récupérer les données Spektrafilm, vérifiez-les contre les PDF, puis digitalisez uniquement ce qui manque. Cela vous évite de refaire un travail déjà bien fait et vous concentre sur la partie à plus forte valeur ajoutée : l'intégration, la calibration et la validation.
+
+---
+
+*Document généré pour le projet de simulation physique Portra 400 / C-41 — Canon 90D.*
+*Toutes les sources sont citées avec liens directs et vérifiables.*
